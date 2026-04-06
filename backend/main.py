@@ -35,10 +35,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — permite peticiones desde Angular
+# CORS — permite peticiones desde Angular y cualquier subdominio de Vercel
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
