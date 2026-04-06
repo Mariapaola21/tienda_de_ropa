@@ -1,0 +1,63 @@
+<section class="bg-brand-white min-h-screen py-32 flex items-center justify-center">
+  <div class="container mx-auto px-8 max-w-2xl">
+    
+    <div class="text-center mb-16">
+      <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-muted mb-4 block">Private Client Services</span>
+      <h1 class="text-4xl md:text-5xl font-serif text-brand-dark leading-tight mb-8">Personal Styling <br/>& Concierge</h1>
+      <p class="text-[13px] leading-loose text-brand-dark/70 max-w-md mx-auto">
+        Allow our master tailors and personal stylists to curate a wardrobe perfectly attuned to your architecture and lifestyle. Appointments are strictly private.
+      </p>
+    </div>
+
+    @if (requestSubmitted) {
+      <div class="bg-brand-bg border border-brand-gold p-12 text-center animate-fade-in">
+        <div class="w-12 h-12 mx-auto border border-brand-gold flex items-center justify-center mb-6 rotate-45">
+          <div class="w-3 h-3 bg-brand-gold -rotate-45"></div>
+        </div>
+        <h3 class="text-2xl font-serif text-brand-dark mb-4">Request Received</h3>
+        <p class="text-[13px] text-brand-dark/70 leading-relaxed max-w-sm mx-auto">
+          An Aurelian Silk concierge will contact you within 24 hours to silently arrange your private fitting.
+        </p>
+      </div>
+    } @else {
+      <form class="flex flex-col gap-10" (submit)="$event.preventDefault(); submitRequest()">
+        
+        <div class="flex flex-col gap-2 relative group">
+          <label class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand-dark/50 group-focus-within:text-brand-gold transition-colors">Full Name</label>
+          <input type="text" required
+                 class="w-full bg-transparent border-b border-brand-dark/20 py-2 text-brand-dark font-serif text-lg focus:outline-none focus:border-brand-gold transition-colors" />
+        </div>
+
+        <div class="flex flex-col gap-2 relative group">
+          <label class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand-dark/50 group-focus-within:text-brand-gold transition-colors">Email Address</label>
+          <input type="email" required
+                 class="w-full bg-transparent border-b border-brand-dark/20 py-2 text-brand-dark font-serif text-lg focus:outline-none focus:border-brand-gold transition-colors" />
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-10">
+          <div class="flex-1 flex flex-col gap-2 relative group">
+            <label class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand-dark/50 group-focus-within:text-brand-gold transition-colors">Preferred City</label>
+            <select class="w-full bg-transparent border-b border-brand-dark/20 py-2.5 text-brand-dark font-serif text-base appearance-none focus:outline-none focus:border-brand-gold transition-colors cursor-pointer">
+              <option value="paris">Paris, Avenue Montaigne</option>
+              <option value="london">London, Mayfair</option>
+              <option value="newyork">New York, 5th Avenue</option>
+              <option value="tokyo">Tokyo, Ginza</option>
+              <option value="virtual">Virtual Consultation</option>
+            </select>
+          </div>
+          
+          <div class="flex-1 flex flex-col gap-2 relative group">
+            <label class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand-dark/50 group-focus-within:text-brand-gold transition-colors">Styling Objective</label>
+            <input type="text" placeholder="e.g. Autumn Wardrobe, Gala Event"
+                   class="w-full bg-transparent border-b border-brand-dark/20 py-2 text-brand-dark font-serif text-lg focus:outline-none focus:border-brand-gold transition-colors" />
+          </div>
+        </div>
+
+        <button type="submit" class="mt-8 btn-gold py-5 text-[11px] tracking-[0.3em]">
+          Request Private Appointment
+        </button>
+      </form>
+    }
+
+  </div>
+</section>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Aurelian Silk | Tienda de Ropa Premium</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 
+            sans: ['Inter', 'sans-serif'],
+            serif: ['"Noto Serif"', 'serif']
+          },
+          colors: {
+            brand: {
+              gold: '#725b29',
+              lightGold: '#C5A059',
+              dark: '#1a1a1a',
+              bg: '#f9f9f9',
+              white: '#ffffff',
+              muted: '#adb3b4'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Noto Serif & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; color: #1a1a1a; -webkit-font-smoothing: antialiased; }
+    
+    .font-serif { font-family: 'Noto Serif', serif; }
+    
+    .btn-gold {
+      background: linear-gradient(135deg, #725b29 0%, #654f1e 100%);
+      color: #fff6ed;
+      padding: 0.875rem 2rem;
+      border-radius: 0px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      transition: opacity 0.3s ease;
+      display: inline-flex; align-items: center; justify-content: center; width: 100%;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-gold:hover { opacity: 0.9; }
+
+    .btn-outline {
+      background: transparent;
+      color: #1a1a1a;
+      border: 1px solid rgba(117, 124, 125, 0.4);
+      padding: 0.875rem 2rem;
+      border-radius: 0px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      display: inline-flex; align-items: center; justify-content: center; width: 100%;
+      cursor: pointer;
+    }
+    .btn-outline:hover { border-color: #1a1a1a; }
+
+    .input-minimal {
+      width: 100%; padding: 0.75rem 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #adb3b4;
+      font-size: 0.875rem; outline: none; transition: border-color 0.3s ease;
+      color: #1a1a1a;
+    }
+    .input-minimal:focus { border-bottom-color: #725b29; }
+  </style>
+</head>
+<body class="bg-brand-bg text-brand-dark antialiased">
+  <app-root></app-root>
+</body>
+</html>

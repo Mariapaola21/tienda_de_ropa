@@ -1,0 +1,49 @@
+<div class="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+  <div class="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
+    <h1 class="mb-1 text-2xl font-light text-slate-900">Crear cuenta</h1>
+    <p class="mb-6 text-sm text-slate-400">Únete a nuestra tienda</p>
+
+    @if (error()) {
+      <div class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{{ error() }}</div>
+    }
+
+    <form (ngSubmit)="submit()" class="flex flex-col gap-4">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Nombre</label>
+          <input [(ngModel)]="form.nombre" name="nombre" required
+            class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Apellido</label>
+          <input [(ngModel)]="form.apellido" name="apellido" required
+            class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+        </div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Documento</label>
+        <input [(ngModel)]="form.documento" name="documento" required
+          class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Correo</label>
+        <input [(ngModel)]="form.correo" name="correo" type="email" required
+          class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Contraseña</label>
+        <input [(ngModel)]="form.password" name="password" type="password" required
+          class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+      </div>
+      <button type="submit" [disabled]="cargando()"
+        class="mt-2 rounded-xl bg-slate-900 py-3 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:opacity-60 active:scale-95">
+        {{ cargando() ? 'Registrando...' : 'Crear cuenta' }}
+      </button>
+    </form>
+
+    <p class="mt-4 text-center text-sm text-slate-400">
+      ¿Ya tienes cuenta?
+      <a routerLink="/auth/login" class="text-emerald-600 hover:underline">Ingresar</a>
+    </p>
+  </div>
+</div>

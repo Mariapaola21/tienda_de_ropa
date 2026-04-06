@@ -1,0 +1,43 @@
+<article class="group relative flex flex-col gap-4 mb-8">
+  <!-- Imagen -->
+  <a [routerLink]="['/shop', producto.id]" class="block relative w-full aspect-[3/4] overflow-hidden bg-[#f2f4f4]">
+    <img [src]="producto.imagen_url || 'https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600&auto=format&fit=crop'"
+      [alt]="producto.nombre"
+      class="w-full h-full object-cover mix-blend-multiply opacity-95 transition-transform duration-700 group-hover:scale-105"
+      loading="lazy" />
+    
+    @if (tieneOferta) {
+      <div class="absolute top-4 left-4">
+        <span class="bg-brand-dark text-brand-white text-[10px] font-bold tracking-widest uppercase px-3 py-1">
+          -{{ descuento }}%
+        </span>
+      </div>
+    }
+
+    <div class="absolute bottom-0 left-0 w-full p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+      <button (click)="agregarCarrito.emit(producto); $event.preventDefault();"
+        class="w-full bg-brand-white/90 backdrop-blur-sm text-brand-dark py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-brand-dark hover:text-brand-white transition-colors">
+        Quick Add
+      </button>
+    </div>
+  </a>
+
+  <!-- Info -->
+  <div class="flex flex-col gap-1 px-1">
+    @if (producto.marca) {
+      <p class="text-[9px] text-brand-muted font-bold uppercase tracking-[0.2em]">{{ producto.marca }}</p>
+    }
+    
+    <div class="flex justify-between items-start gap-4">
+      <h3 class="text-sm font-serif text-brand-dark leading-tight">{{ producto.nombre }}</h3>
+      <div class="flex flex-col items-end gap-1 shrink-0">
+        @if (tieneOferta) {
+          <span class="text-sm font-serif text-brand-dark">${{ producto.precio_oferta | number:'1.2-2' }}</span>
+          <span class="text-[10px] text-brand-muted line-through tracking-widest">${{ producto.precio | number:'1.2-2' }}</span>
+        } @else {
+          <span class="text-sm font-serif text-brand-dark">${{ producto.precio | number:'1.2-2' }}</span>
+        }
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,64 @@
+<section class="bg-brand-white min-h-screen py-32">
+  <div class="container mx-auto px-8 md:px-12">
+    <!-- Header -->
+    <div class="mb-32 text-center max-w-4xl mx-auto flex flex-col items-center">
+      <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-muted mb-6">Chapter I</span>
+      <h1 class="text-6xl md:text-8xl font-serif text-brand-dark leading-none tracking-tighter mb-8">THE LOOKBOOK</h1>
+      <div class="h-px w-32 bg-brand-dark/20 mb-10"></div>
+      <p class="text-sm font-serif text-brand-dark/70 italic leading-relaxed">
+        Curated ensembles that define the season. Hover over any look to unearth its individual pieces.
+      </p>
+    </div>
+
+    <!-- Editorial Staggered Grid -->
+    <div class="flex flex-col gap-40">
+      @for (look of looks; track look.id; let i = $index) {
+        <div class="flex flex-col md:flex-row items-center gap-16 lg:gap-32" [class.md:flex-row-reverse]="i % 2 !== 0">
+          
+          <!-- Large Format Image -->
+          <div class="w-full md:w-7/12 relative group cursor-pointer overflow-hidden bg-brand-bg">
+            <img [src]="look.imageUrl" [alt]="look.title" 
+                 class="w-full aspect-[4/5] object-cover mix-blend-multiply opacity-95 transition-transform duration-[1.5s] ease-out group-hover:scale-105" />
+            
+            <!-- Hover Shop Overlay -->
+            <div class="absolute inset-0 bg-brand-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center backdrop-blur-sm p-8 text-center">
+              <span class="text-[10px] uppercase tracking-[0.3em] text-brand-gold font-bold mb-4">Shop the Look</span>
+              <div class="w-full max-w-sm flex flex-col gap-4">
+                @for (piece of look.pieces; track piece.nombre) {
+                  <div class="flex justify-between items-center border-b border-brand-white/20 pb-4">
+                    <span class="text-xs font-serif text-brand-white">{{ piece.nombre }}</span>
+                    <span class="text-[10px] uppercase tracking-widest text-brand-lightGold">${{ piece.precio }}</span>
+                  </div>
+                }
+                <button (click)="agregarLookAlCarrito(look)" class="mt-8 btn-gold bg-transparent border border-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-colors text-[9px]">
+                  Add All to Bag
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Editorial Text -->
+          <div class="w-full md:w-5/12 flex flex-col justify-center">
+            <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-muted mb-4">Look 0{{ i + 1 }}</span>
+            <h2 class="text-4xl lg:text-5xl font-serif text-brand-dark leading-tight mb-8">{{ look.title }}</h2>
+            <p class="text-[13px] leading-loose text-brand-dark/70 mb-12 max-w-md">
+              {{ look.description }}
+            </p>
+            <a routerLink="/shop" class="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-dark hover:text-brand-gold transition-colors border-b border-brand-dark hover:border-brand-gold pb-1 self-start">
+              Explore Similar Items
+            </a>
+          </div>
+
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Elegant Toast / Alerta Personalizada -->
+  @if (mensajeExito()) {
+    <div class="fixed bottom-10 right-10 bg-brand-dark border-l-2 border-brand-gold text-brand-white px-8 py-5 shadow-2xl z-50 animate-fade-in flex items-center gap-4">
+      <div class="w-1.5 h-1.5 bg-brand-gold rounded-full"></div>
+      <p class="text-[10px] uppercase tracking-[0.2em] font-bold">{{ mensajeExito() }}</p>
+    </div>
+  }
+</section>

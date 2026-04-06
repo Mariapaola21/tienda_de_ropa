@@ -1,0 +1,42 @@
+<header class="fixed top-0 left-0 w-full z-50 bg-brand-white/80 backdrop-blur-xl border-b border-gray-100">
+  <nav class="container mx-auto px-8 h-20 flex justify-between items-center relative">
+    <!-- Left Links -->
+    <div class="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-widest font-semibold text-brand-dark">
+      <a routerLink="/shop" class="hover:text-brand-lightGold transition-colors tracking-[0.2em]">Boutique</a>
+      <a routerLink="/editorial" class="hover:text-brand-lightGold transition-colors tracking-[0.2em]">Editorial</a>
+      <a routerLink="/heritage" class="hover:text-brand-lightGold transition-colors tracking-[0.2em] opacity-80">Heritage</a>
+      <a routerLink="/concierge" class="hover:text-brand-lightGold transition-colors tracking-[0.2em] opacity-80">Concierge</a>
+    </div>
+
+    <!-- Center Logo -->
+    <a routerLink="/shop" class="absolute left-1/2 transform -translate-x-1/2 text-2xl font-serif font-bold tracking-tight text-brand-dark hover:opacity-80 transition-opacity">
+      AURELIAN
+    </a>
+
+    <!-- Right Icons -->
+    <div class="flex items-center gap-8">
+      @if (auth.isLoggedIn()) {
+        <a routerLink="/profile" class="text-[11px] uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-lightGold transition-colors">VIP Profile</a>
+        <button (click)="auth.logout()" class="text-[11px] uppercase tracking-widest font-semibold text-brand-dark/50 hover:text-brand-dark transition-colors">Salir</button>
+      } @else {
+        <a routerLink="/auth/login" class="text-[11px] uppercase tracking-widest font-semibold text-brand-dark hover:text-brand-lightGold transition-colors">Login</a>
+      }
+
+      <a routerLink="/carrito" class="relative group">
+        <!-- Minimalist slim cart icon -->
+        <svg class="w-5 h-5 text-brand-dark group-hover:text-brand-lightGold transition-colors" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+          <path stroke-linecap="square" stroke-linejoin="miter" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        @if (carrito.cantidadItems() > 0) {
+          <span class="absolute -top-1 -right-1.5 bg-brand-gold text-brand-bg text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full font-sans font-bold">
+            {{ carrito.cantidadItems() }}
+          </span>
+        }
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main class="min-h-screen bg-brand-bg pt-20">
+  <router-outlet />
+</main>

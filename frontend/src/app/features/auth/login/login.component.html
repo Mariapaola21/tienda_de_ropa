@@ -1,0 +1,32 @@
+<div class="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+  <div class="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
+    <h1 class="mb-1 text-2xl font-light text-slate-900">Ingresar</h1>
+    <p class="mb-6 text-sm text-slate-400">Bienvenido de vuelta</p>
+
+    @if (error()) {
+      <div class="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{{ error() }}</div>
+    }
+
+    <form (ngSubmit)="submit()" class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Correo</label>
+        <input [(ngModel)]="correo" name="correo" type="email" required
+          class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium uppercase tracking-wide text-slate-500">Contraseña</label>
+        <input [(ngModel)]="password" name="password" type="password" required
+          class="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100" />
+      </div>
+      <button type="submit" [disabled]="cargando()"
+        class="mt-2 rounded-xl bg-slate-900 py-3 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:opacity-60 active:scale-95">
+        {{ cargando() ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+    </form>
+
+    <p class="mt-4 text-center text-sm text-slate-400">
+      ¿No tienes cuenta?
+      <a routerLink="/auth/register" class="text-emerald-600 hover:underline">Regístrate</a>
+    </p>
+  </div>
+</div>

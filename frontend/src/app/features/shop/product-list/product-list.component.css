@@ -1,0 +1,4 @@
+/* Animación de entrada para las tarjetas */
+:host {
+  display: block;
+}

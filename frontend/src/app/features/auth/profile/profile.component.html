@@ -1,0 +1,111 @@
+<section class="bg-[#121212] min-h-screen pt-32 pb-24 text-brand-bg transition-colors duration-1000">
+  <div class="container mx-auto px-8 md:px-12 flex flex-col lg:flex-row gap-20">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="w-full lg:w-1/4 flex flex-col gap-8">
+      <div>
+        <h1 class="text-4xl font-serif text-[#C5A059] mb-1">C. Dubois</h1>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-brand-bg/50 font-bold">Aurelian Black Tier</p>
+      </div>
+
+      <nav class="flex flex-col gap-6 mt-12 relative border-l border-[#C5A059]/30 pl-6">
+        <a href="#orders" class="text-[11px] uppercase tracking-widest text-[#C5A059] font-bold hover:text-[#C5A059] transition-colors relative">
+          <span class="absolute -left-[27px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#C5A059] rounded-full"></span>
+          Purchase History
+        </a>
+        <a href="#wishlist" class="text-[11px] uppercase tracking-widest text-brand-bg/60 hover:text-[#C5A059] transition-colors">
+          Curated Wishlist
+        </a>
+        <a href="#payment" class="text-[11px] uppercase tracking-widest text-brand-bg/60 hover:text-[#C5A059] transition-colors">
+          Private Vault (Payment)
+        </a>
+        <a href="#settings" class="text-[11px] uppercase tracking-widest text-brand-bg/60 hover:text-[#C5A059] transition-colors mt-8">
+          Personal Preferences
+        </a>
+        <a routerLink="/shop" class="text-[11px] uppercase tracking-widest text-brand-bg/40 hover:text-white transition-colors mt-8">
+          ← Exit to Boutique
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <div class="w-full lg:w-3/4 flex flex-col gap-24">
+      
+      <!-- Orders Section -->
+      <div id="orders">
+        <h2 class="text-2xl font-serif text-[#C5A059] mb-10 border-b border-[#C5A059]/20 pb-4">Recent Archives</h2>
+        
+        @if (cargando()) {
+          <p class="text-brand-bg/50 text-sm font-serif italic">Cargando pedidos...</p>
+        } @else if (error()) {
+          <p class="text-red-400 text-sm font-serif italic">{{ error() }}</p>
+        } @else if (orders().length === 0) {
+          <p class="text-brand-bg/50 text-sm font-serif italic">Your archive is currently empty.</p>
+        } @else {
+          <div class="flex flex-col gap-8">
+            @for (order of orders(); track order.id) {
+              <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-6 border border-[#ffffff]/10 hover:border-[#C5A059]/50 transition-colors bg-[#1a1a1a]">
+                <div class="flex flex-col gap-2">
+                  <span class="text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">ORD-{{ order.id }}</span>
+                  <span class="text-[11px] text-brand-bg/50">{{ order.fecha_pedido | date:'mediumDate' }}</span>
+                </div>
+                <div class="flex flex-col items-end gap-2 mt-4 md:mt-0">
+                  <span class="text-[10px] uppercase tracking-widest px-3 py-1 border"
+                        [class.border-\[#C5A059\]]="order.estado === 'entregado'"
+                        [class.text-\[#C5A059\]]="order.estado === 'entregado'"
+                        [class.border-brand-bg\/30]="order.estado !== 'entregado'"
+                        [class.text-brand-bg\/60]="order.estado !== 'entregado'">
+                    {{ order.estado }}
+                  </span>
+                  <p class="text-lg font-serif text-brand-bg">${{ order.total | number:'1.2-2' }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Wishlist Section -->
+      <div id="wishlist">
+        <h2 class="text-2xl font-serif text-[#C5A059] mb-10 border-b border-[#C5A059]/20 pb-4">Curated Wishlist</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          @for (item of wishlist; track item.name) {
+            <div class="relative group h-64 bg-[#1a1a1a] border border-[#ffffff]/10 flex flex-col justify-end p-6 hover:border-[#C5A059]/50 transition-colors overflow-hidden">
+              <img [src]="item.imageUrl" [alt]="item.name" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity mix-blend-luminosity" />
+              <div class="relative z-10">
+                <span class="text-[9px] uppercase tracking-[0.2em] text-brand-bg/50 mb-2 block">{{ item.category }}</span>
+                <h3 class="text-sm font-serif text-brand-white mb-2">{{ item.name }}</h3>
+                <p class="text-sm font-serif text-[#C5A059]">${{ item.price | number:'1.2-2' }}</p>
+              </div>
+              <button class="absolute top-6 right-6 z-20 text-brand-bg/30 hover:text-red-900 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Concierge Valet -->
+      <div class="bg-gradient-to-r from-[#1a1a1a] to-[#252525] p-10 border border-[#C5A059]/30 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div>
+          <h3 class="text-xl font-serif text-[#C5A059] mb-2">White Glove Valet</h3>
+          <p class="text-[11px] text-brand-bg/70 leading-relaxed max-w-sm">
+            Enable priority shipping, automatic tailoring reservations, and private fitting rooms for all future acquisitions.
+          </p>
+        </div>
+        <button (click)="toggleValet()" 
+                class="px-8 py-4 text-[10px] uppercase tracking-[0.2em] font-bold border transition-colors flex-shrink-0"
+                [class.bg-[#C5A059]]="valetServiceEnabled"
+                [class.text-[#121212]]="valetServiceEnabled"
+                [class.border-[#C5A059]]="valetServiceEnabled"
+                [class.text-[#C5A059]]="!valetServiceEnabled"
+                [class.border-[#C5A059]/50]="!valetServiceEnabled"
+                [class.hover:bg-[#C5A059]/10]="!valetServiceEnabled">
+          {{ valetServiceEnabled ? 'Valet Active' : 'Enable Valet' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>

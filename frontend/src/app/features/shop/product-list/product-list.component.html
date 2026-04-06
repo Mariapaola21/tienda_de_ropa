@@ -1,0 +1,87 @@
+<!-- HERO EDITORIAL -->
+<section class="relative w-full h-[80vh] min-h-[600px] flex items-center justify-center bg-brand-bg overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
+       alt="Fashion Editorial" class="absolute inset-0 w-full h-full object-cover object-top opacity-[0.85] mix-blend-multiply" />
+       
+  <div class="relative z-10 text-center px-6 max-w-3xl mx-auto flex flex-col items-center">
+    <span class="text-[11px] uppercase tracking-[0.3em] font-bold text-brand-white mb-6">Aurelian Silk Collection</span>
+    <h1 class="text-5xl md:text-7xl font-serif text-brand-white leading-none tracking-tight mb-8">ELEGANCE REDEFINED</h1>
+    <div class="h-px w-24 bg-brand-white/50 mb-10"></div>
+    <a href="/shop#catalogo" class="btn-gold max-w-[240px]">
+      Explore Collection
+    </a>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="catalogo" class="py-32 bg-brand-white">
+  <div class="container mx-auto px-8 md:px-12">
+    <!-- Header Minimalista -->
+    <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+      <div>
+        <h2 class="text-4xl font-serif text-brand-dark mb-2">Featured Pieces</h2>
+        <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-muted">The Curated Selection</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="flex flex-wrap items-center gap-6">
+        <input [(ngModel)]="marcaFiltro" type="text" placeholder="Brand"
+          class="input-minimal w-32 pb-2" />
+        <input [(ngModel)]="categoriaFiltro" type="text" placeholder="Category"
+          class="input-minimal w-32 pb-2" />
+        <div class="flex items-center gap-4">
+          <button (click)="aplicarFiltros()"
+            class="text-[10px] uppercase tracking-[0.15em] font-bold text-brand-dark hover:text-brand-gold transition-colors pt-2">
+            Apply
+          </button>
+          <button (click)="limpiarFiltros()"
+            class="text-[10px] uppercase tracking-[0.15em] text-brand-muted hover:text-brand-dark transition-colors pt-2">
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cargando -->
+    @if (cargando()) {
+      <div class="flex justify-center py-32">
+        <div class="h-8 w-8 animate-spin border-t-2 border-brand-gold"></div>
+      </div>
+    }
+
+    <!-- Error -->
+    @if (error()) {
+      <div class="text-center py-10 text-brand-dark font-serif">{{ error() }}</div>
+    }
+
+    <!-- Grid -->
+    @if (!cargando() && !error()) {
+      @if (productos().length === 0) {
+        <div class="text-center py-32">
+          <p class="text-lg font-serif text-brand-muted mb-6">No pieces match your criteria.</p>
+          <button (click)="limpiarFiltros()" class="btn-outline max-w-[200px]">View All</button>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+          @for (producto of productos(); track producto.id) {
+            <app-product-card [producto]="producto" (agregarCarrito)="agregarAlCarrito($event)" />
+          }
+        </div>
+      }
+    }
+  </div>
+</section>
+
+<!-- Brand Message Footer -->
+<section class="py-32 bg-[#f2f4f4]">
+  <div class="container mx-auto px-8 text-center max-w-2xl flex flex-col items-center">
+    <div class="w-10 h-10 border border-brand-dark/20 flex items-center justify-center mb-10 rotate-45">
+      <div class="w-2 h-2 bg-brand-gold -rotate-45"></div>
+    </div>
+    <h3 class="text-3xl font-serif text-brand-dark mb-6">The Aurelian Promise</h3>
+    <p class="text-[13px] leading-loose text-brand-dark/70">
+      Every piece in our collection is curated with an unwavering commitment to quality, 
+      craftsmanship, and timeless elegance. We believe that true luxury is found in the meticulous details.
+    </p>
+  </div>
+</section>
