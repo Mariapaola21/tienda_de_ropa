@@ -81,4 +81,5 @@ async def seed():
         print("   Admin: admin@tienda.com / admin123")
 
 
-asyncio.run(seed())
+if __name__ == "__main__":
+    asyncio.run(seed())

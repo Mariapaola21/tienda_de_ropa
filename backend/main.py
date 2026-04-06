@@ -17,8 +17,12 @@ from app.routers import auth, productos, pedidos, categorias
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Crear tablas
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    # Poblar con datos iniciales si la BD está vacía
+    from seed import seed
+    await seed()
     yield
 
 
